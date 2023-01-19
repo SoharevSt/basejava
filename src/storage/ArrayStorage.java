@@ -8,30 +8,29 @@ import java.util.Arrays;
  * Array based storage for Resumes
  */
 public class ArrayStorage {
+    private final int FULL_SIZE = 10000;
     private int size = 0;
-    private final Resume[] storage = new Resume[10000];
+    private final Resume[] storage = new Resume[FULL_SIZE];
 
     public void clear() {
-        Arrays.fill(storage, 0, size - 1, null);
+        Arrays.fill(storage, 0, size, null);
         size = 0;
     }
 
     public void save(Resume r) {
-        int index = checkAvailability(r.getUuid());
-        if (index == -1) {
-            if (size < storage.length) {
-                storage[size] = r;
-                size++;
-            } else {
-                System.out.println("ERROR: Storage full");
-            }
-        } else {
+        int index = getIndex(r.getUuid());
+        if (size == FULL_SIZE) {
+            System.out.println("ERROR: Storage full");
+        } else if (index != -1) {
             System.out.println("ERROR: Resume with uuid " + r.getUuid() + " is already in storage");
+        } else {
+            storage[size] = r;
+            size++;
         }
     }
 
     public void update(Resume r) {
-        int index = checkAvailability(r.getUuid());
+        int index = getIndex(r.getUuid());
         if (index != -1) {
             storage[index] = r;
         } else {
@@ -40,7 +39,7 @@ public class ArrayStorage {
     }
 
     public Resume get(String uuid) {
-        int index = checkAvailability(uuid);
+        int index = getIndex(uuid);
         if (index != -1) {
             return storage[index];
         }
@@ -49,13 +48,13 @@ public class ArrayStorage {
     }
 
     public void delete(String uuid) {
-        int index = checkAvailability(uuid);
+        int index = getIndex(uuid);
         if (index != -1) {
             storage[index] = storage[size - 1];
             storage[size - 1] = null;
             size--;
         } else {
-            System.out.println("ERROR: Resume missing from the storage");
+            System.out.println("ERROR: Resume " + uuid + " missing from the storage");
         }
     }
 
@@ -70,7 +69,7 @@ public class ArrayStorage {
         return size;
     }
 
-    private int checkAvailability(String uuid) {
+    private int getIndex(String uuid) {
         for (int i = 0; i < size; i++) {
             if(storage[i].getUuid().equals(uuid)) {
                 return i;
