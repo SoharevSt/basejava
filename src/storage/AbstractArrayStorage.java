@@ -27,7 +27,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public final void save(Resume r) {
         if (getIndex(r.getUuid()) >= 0) {
             System.out.println("Resume " + r.getUuid() + " already exist");
-        } else if (size >= STORAGE_LIMIT) {
+        } else if (size == STORAGE_LIMIT) {
             System.out.println("Storage overflow");
         } else {
             saveInStorage(r);
