@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public abstract class AbstractArrayStorageTest {
+public abstract class AbstractStorageTest {
     private final Storage storage;
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
@@ -21,7 +21,7 @@ public abstract class AbstractArrayStorageTest {
     private static final Resume RESUME_3 = new Resume(UUID_3);
     private static final Resume RESUME_4 = new Resume(UUID_4);
 
-    public AbstractArrayStorageTest(Storage storage) {
+    public AbstractStorageTest(Storage storage) {
         this.storage = storage;
 
     }
@@ -61,13 +61,13 @@ public abstract class AbstractArrayStorageTest {
         assertGet(RESUME_4);
     }
 
-    @Test()
-    public void saveAlreadyExist() throws ExistStorageException {
+    @Test
+    public void saveAlreadyExist() {
         assertThrows(ExistStorageException.class, () -> storage.save(RESUME_1));
     }
 
-    @Test()
-    public void saveOverflow() throws ExistStorageException {
+    @Test
+    public void saveOverflow() {
         try {
             storage.clear();
             for (int i = 0; i < AbstractArrayStorage.STORAGE_LIMIT; i++) {

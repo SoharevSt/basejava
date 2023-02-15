@@ -1,5 +1,6 @@
 package storage;
 
+import exception.StorageException;
 import model.Resume;
 
 import java.util.Arrays;
@@ -14,11 +15,18 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         size = 0;
     }
 
-    public final void updateStorage(Object key, Resume r) {
+    protected final void saveInStorage(Resume r) {
+        if (size == AbstractArrayStorage.STORAGE_LIMIT) {
+            throw new StorageException("Storage overflow", r.getUuid());
+        }
+        saveInArrayStorage(r);
+    }
+
+    protected final void updateStorage(Object key, Resume r) {
         storage[(int) key] = r;
     }
 
-    public final Resume getFromStorage(Object key) {
+    protected final Resume getFromStorage(Object key) {
         return storage[(int) key];
     }
 
@@ -30,7 +38,9 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return size;
     }
 
-    public final boolean isExist(Object key) {
+    protected final boolean isExist(Object key) {
         return (int) key >= 0;
     }
+
+    protected abstract void saveInArrayStorage(Resume r);
 }
