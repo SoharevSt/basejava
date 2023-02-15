@@ -8,7 +8,7 @@ import model.Resume;
 public class ArrayStorage extends AbstractArrayStorage {
 
     @Override
-    protected Integer findKey(String uuid) {
+    protected Integer findSearchKey(String uuid) {
         for (int i = 0; i < size; i++) {
             if (uuid.equals(storage[i].getUuid())) {
                 return i;
@@ -24,7 +24,7 @@ public class ArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    protected void deleteFromStorage(Object key) {
+    protected void doDelete(Object key) {
         storage[(int) key] = storage[size - 1];
         size--;
     }

@@ -15,18 +15,18 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         size = 0;
     }
 
-    protected final void saveInStorage(Resume r) {
+    protected final void doSave(Object key, Resume r) {
         if (size == AbstractArrayStorage.STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", r.getUuid());
         }
         saveInArrayStorage(r);
     }
 
-    protected final void updateStorage(Object key, Resume r) {
+    protected final void doUpdate(Object key, Resume r) {
         storage[(int) key] = r;
     }
 
-    protected final Resume getFromStorage(Object key) {
+    protected final Resume doGet(Object key) {
         return storage[(int) key];
     }
 
