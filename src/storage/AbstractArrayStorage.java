@@ -3,7 +3,10 @@ package storage;
 import exception.StorageException;
 import model.Resume;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
     protected static final int STORAGE_LIMIT = 10000;
@@ -30,8 +33,9 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return storage[(int) key];
     }
 
-    public final Resume[] getAll() {
-        return Arrays.copyOf(storage, size);
+    @Override
+    protected List<Resume> doGetAll() {
+        return Arrays.stream(storage).limit(size).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public final int size() {

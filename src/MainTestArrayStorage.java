@@ -1,12 +1,12 @@
 import model.Resume;
 import storage.AbstractArrayStorage;
-import storage.SortedArrayStorage;
+import storage.ArrayStorage;
 
 /**
  * Test for your storage.ArrayStorage implementation
  */
 public class MainTestArrayStorage {
-    static final AbstractArrayStorage ARRAY_STORAGE = new SortedArrayStorage();
+    static final AbstractArrayStorage ARRAY_STORAGE = new ArrayStorage();
 
     public static void main(String[] args) {
         Resume r1 = new Resume("uuid1");
@@ -39,7 +39,7 @@ public class MainTestArrayStorage {
 
     static void printAll() {
         System.out.println("\nGet All");
-        for (Resume r : ARRAY_STORAGE.getAll()) {
+        for (Resume r : ARRAY_STORAGE.getAllSorted()) {
             System.out.println(r);
         }
     }
