@@ -18,7 +18,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         size = 0;
     }
 
-    protected final void doSave(Object key, Resume r) {
+    protected final void doSave(Resume r) {
         if (size == AbstractArrayStorage.STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", r.getUuid());
         }

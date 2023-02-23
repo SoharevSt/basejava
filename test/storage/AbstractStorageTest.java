@@ -6,6 +6,7 @@ import model.Resume;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -45,7 +46,7 @@ public abstract class AbstractStorageTest {
     public void clear() {
         storage.clear();
         assertSize(0);
-        assertArrayEquals(new Resume[0], storage.getAllSorted().toArray());
+        assertEquals(new ArrayList<Resume>(), storage.getAllSorted());
     }
 
     @Test
@@ -101,7 +102,7 @@ public abstract class AbstractStorageTest {
     public void getAll() {
         List<Resume> expected = Arrays.asList(RESUME_1, RESUME_2, RESUME_3);
         List<Resume> actual = storage.getAllSorted();
-        assertArrayEquals(expected.toArray(), actual.toArray());
+        assertEquals(expected, actual);
         assertSize(storage.getAllSorted().size());
     }
 

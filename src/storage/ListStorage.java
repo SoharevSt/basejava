@@ -29,7 +29,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void doSave(Object key, Resume r) {
+    protected void doSave(Resume r) {
         storage.add(r);
     }
 

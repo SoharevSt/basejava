@@ -8,15 +8,15 @@ import java.util.Comparator;
 import java.util.List;
 
 public abstract class AbstractStorage implements Storage {
-    
+
     public void update(Resume r) {
         Object key = getExistingSearchKey(r.getUuid());
         doUpdate(key, r);
     }
 
     public void save(Resume r) {
-        Object key = getNotExistingSearchKey(r.getUuid());
-        doSave(key, r);
+        getNotExistingSearchKey(r.getUuid());
+        doSave(r);
     }
 
     public Resume get(String uuid) {
@@ -41,7 +41,7 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract Resume doGet(Object key);
 
-    protected abstract void doSave(Object key, Resume r);
+    protected abstract void doSave(Resume r);
 
     protected abstract void doDelete(Object key);
 
@@ -57,11 +57,10 @@ public abstract class AbstractStorage implements Storage {
         return key;
     }
 
-    private Object getNotExistingSearchKey(String uuid) {
+    private void getNotExistingSearchKey(String uuid) {
         Object key = findSearchKey(uuid);
         if (isExist(key)) {
             throw new ExistStorageException(uuid);
         }
-        return key;
     }
 }
